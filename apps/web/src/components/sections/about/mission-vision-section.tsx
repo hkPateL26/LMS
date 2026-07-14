@@ -1,12 +1,41 @@
 'use client';
 
 import * as React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
 import { Container } from '@/components/layout/container';
 import { Section } from '@/components/layout/section';
 import { Target, Lightbulb } from 'lucide-react';
 
 export function MissionVisionSection() {
+  // Motion values for interactive tilt effect
+  const rotateX = useMotionValue(0);
+  const rotateY = useMotionValue(0);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left; // x position within the element
+    const y = e.clientY - rect.top; // y position within the element
+    const halfW = rect.width / 2;
+    const halfH = rect.height / 2;
+    // Map to -8..8 degrees
+    rotateY.set(((x - halfW) / halfW) * 8);
+    rotateX.set(((y - halfH) / halfH) * -8);
+  };
+
+  const handleMouseLeave = () => {
+    rotateX.set(0);
+    rotateY.set(0);
+  };
+
+  const cardStyle = {
+    perspective: 1000,
+    rotateX,
+    rotateY,
+  } as React.CSSProperties;
+
+  const sharedCardClasses =
+    'bg-card border-border border rounded-3xl p-8 transition-all hover:shadow-xl group';
+
   return (
     <Section className="bg-surface/30">
       <Container>

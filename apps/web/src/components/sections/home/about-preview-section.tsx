@@ -6,7 +6,7 @@ import { ArrowRight, Target, Lightbulb } from 'lucide-react';
 
 export function AboutPreviewSection() {
   return (
-    <Section className="bg-surface">
+    <Section className="bg-card">
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-8">
           <div className="space-y-6">
@@ -24,7 +24,7 @@ export function AboutPreviewSection() {
             </Button>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2 items-stretch">
             <div className="bg-card rounded-2xl border p-6 shadow-sm">
               <div className="bg-primary/10 text-primary mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg">
                 <Target className="h-6 w-6" />
@@ -35,9 +35,9 @@ export function AboutPreviewSection() {
                 relevant technology training to students everywhere.
               </p>
             </div>
-            <div className="bg-card mt-0 rounded-2xl border p-6 shadow-sm sm:mt-8">
+            <div className="bg-card rounded-2xl border p-6 shadow-sm h-full">
               <div className="bg-secondary/10 text-secondary mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg">
-                <Lightbulb className="h-6 w-6" />
+                <Lightbulb className="h-8 w-8" />
               </div>
               <h3 className="mb-2 text-xl font-bold">Our Vision</h3>
               <p className="text-muted-foreground text-sm">

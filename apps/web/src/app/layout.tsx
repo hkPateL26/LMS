@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 
 import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
+import { PolygonNetworkBackground } from '@/components/background/PolygonNetworkBackground';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -11,16 +12,19 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Shreeji I-Tech Launchpad',
-    default: 'Shreeji I-Tech Launchpad - Empowering IT Students',
+    template: '%s | SKILLFORGE Launchpad',
+    default: 'SKILLFORGE Launchpad - Empowering IT Students',
   },
   description:
     'Public gateway for IT students to discover technology, workshops, and our 10-Day Career Foundation Program.',
+  icons: {
+    icon: '/skillforge_logo.png',
+  },
   openGraph: {
-    title: 'Shreeji I-Tech Launchpad',
+    title: 'SKILLFORGE Launchpad',
     description: 'Empowering IT students with industry-relevant training and career guidance.',
-    url: 'https://shreeji-itech.com', // Placeholder
-    siteName: 'Shreeji I-Tech Launchpad',
+    url: 'https://skillforge.com', // Placeholder
+    siteName: 'SKILLFORGE Launchpad',
     locale: 'en_IN',
     type: 'website',
   },
@@ -33,13 +37,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} font-sans`} suppressHydrationWarning>
+      <body className={`${inter.variable} font-sans bg-white dark:bg-gray-950`} suppressHydrationWarning>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
+          <PolygonNetworkBackground />
           {children}
         </ThemeProvider>
       </body>

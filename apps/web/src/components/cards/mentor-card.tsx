@@ -1,7 +1,9 @@
+// Premium MentorCard with glass effect and gradient border
 import * as React from 'react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Github, Linkedin, Twitter } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 interface MentorCardProps {
   name: string;
@@ -13,6 +15,7 @@ interface MentorCardProps {
   linkedinUrl?: string;
   githubUrl?: string;
   twitterUrl?: string;
+  className?: string;
 }
 
 export function MentorCard({
@@ -25,16 +28,24 @@ export function MentorCard({
   linkedinUrl,
   githubUrl,
   twitterUrl,
+  className,
 }: MentorCardProps) {
   return (
-    <Card className="hover:shadow-card-hover group overflow-hidden transition-all h-full flex flex-col">
+    <Card
+      className={cn(
+        'relative overflow-hidden rounded-xl border border-transparent bg-white/5 backdrop-blur-md shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-primary/30',
+        className,
+      )}
+    >
+      {/* Gradient border overlay */}
+      <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-indigo-500 to-purple-500 opacity-20 pointer-events-none" />
       <CardHeader className="p-0">
-        <div className="bg-muted aspect-square w-full overflow-hidden flex items-center justify-center text-6xl">
+        <div className="bg-muted aspect-square w-full overflow-hidden flex items-center justify-center">
           {imageUrl ? (
             <img
               src={imageUrl}
               alt={name}
-              className="h-full w-full object-cover transition-transform group-hover:scale-105"
+              className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             />
           ) : (
             '🧑‍🏫'
@@ -43,15 +54,11 @@ export function MentorCard({
       </CardHeader>
       <CardContent className="p-6 flex flex-col flex-grow">
         <div className="mb-4">
-          <h3 className="text-2xl font-bold tracking-tight">{name}</h3>
+          <h3 className="text-2xl font-bold tracking-tight text-foreground">{name}</h3>
           <p className="text-primary font-medium">{role}</p>
           <p className="text-muted-foreground text-sm">{experience}</p>
         </div>
-        
-        <p className="text-muted-foreground mb-6 line-clamp-3 text-sm flex-grow">
-          {bio}
-        </p>
-        
+        <p className="text-muted-foreground mb-6 line-clamp-3 text-sm flex-grow">{bio}</p>
         <div className="mb-6">
           <div className="flex flex-wrap gap-2">
             {expertise.map((skill) => (
@@ -61,7 +68,6 @@ export function MentorCard({
             ))}
           </div>
         </div>
-        
         <div className="mt-auto flex gap-4 pt-4 border-t border-border">
           {linkedinUrl && (
             <a href={linkedinUrl} className="text-muted-foreground hover:text-foreground transition-colors">

@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Admin Login | Shreeji I-Tech Launchpad',
+  title: 'Admin Login | SKILLFORGE Launchpad',
   description: 'Secure login portal for Shreeji I-Tech administrators.',
 };
 

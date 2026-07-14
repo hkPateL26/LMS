@@ -9,9 +9,9 @@ import { LearningPhilosophySection } from '@/components/sections/about/learning-
 import { TeamSection } from '@/components/sections/about/team-section';
 
 export const metadata: Metadata = {
-  title: 'About Us | Shreeji I-Tech Launchpad',
+  title: 'About Us | SKILLFORGE Launchpad',
   description:
-    'Learn about Shreeji I-Tech and our mission to bridge the gap between IT students and the corporate industry through practical training.',
+    'Learn about SKILLFORGE and our mission to bridge the gap between IT students and the corporate industry through practical training.',
 };
 
 export default function AboutPage() {

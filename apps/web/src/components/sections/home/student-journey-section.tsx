@@ -47,7 +47,7 @@ export function StudentJourneySection() {
 
         <div className="relative mx-auto max-w-4xl">
           {/* Connecting Line (Desktop) */}
-          <div className="bg-border absolute left-0 top-1/2 z-0 hidden h-1 w-full -translate-y-1/2 md:block" />
+          
 
           <div className="relative z-10 grid gap-8 md:grid-cols-5">
             {journeySteps.map((step, index) => {

@@ -1,3 +1,4 @@
+// Restored premium Navbar component with glass backdrop and gradient CTA
 'use client';
 
 import * as React from 'react';
@@ -5,10 +6,11 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Rocket } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Container } from './container';
+import Logo from '@/components/ui/logo';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { Container } from '@/components/layout/container';
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -41,21 +43,16 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        'fixed top-0 z-50 w-full transition-all duration-300',
+        'fixed top-0 z-50 w-full transition-all duration-300 backdrop-blur-xl',
         isScrolled
-          ? 'bg-background/80 border-b py-3 shadow-sm backdrop-blur-md'
+          ? 'bg-background/70 border-b py-3 shadow-sm'
           : 'bg-transparent py-5',
       )}
     >
       <Container>
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="group flex items-center gap-2">
-            <div className="bg-primary text-primary-foreground rounded-lg p-1.5 transition-transform group-hover:scale-105">
-              <Rocket className="h-5 w-5" />
-            </div>
-            <span className="text-xl font-bold tracking-tight">Shreeji I-Tech</span>
-          </Link>
+          <Logo className="h-8 w-auto" />
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-8 lg:flex">
@@ -67,15 +64,15 @@ export function Navbar() {
                     <Link
                       href={link.href}
                       className={cn(
-                        'hover:text-primary relative text-sm font-medium transition-colors',
-                        isActive ? 'text-primary' : 'text-muted-foreground',
+                        'relative text-sm font-medium transition-colors',
+                        isActive ? 'text-primary' : 'text-muted-foreground hover:text-primary',
                       )}
                     >
                       {link.label}
                       {isActive && (
                         <motion.div
                           layoutId="navbar-indicator"
-                          className="bg-primary absolute -bottom-1 left-0 right-0 h-0.5 rounded-full"
+                          className="bg-primary absolute -bottom-0.5 left-0 right-0 h-0.5 rounded-full"
                         />
                       )}
                     </Link>
@@ -83,13 +80,12 @@ export function Navbar() {
                 );
               })}
             </ul>
-
             <div className="flex items-center gap-4 border-l pl-6">
               <ThemeToggle />
               <Link href="/register">
                 <Button
                   size="sm"
-                  className="font-semibold shadow-md transition-all hover:shadow-lg"
+                  className="font-semibold bg-gradient-to-r from-indigo-500 to-purple-500 text-white shadow-lg hover:shadow-xl transition-all hover:scale-105 hover:from-indigo-600 hover:to-purple-600 border border-transparent hover:border-white/20"
                 >
                   Register Now
                 </Button>
@@ -117,7 +113,7 @@ export function Navbar() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="bg-background overflow-hidden border-b shadow-lg lg:hidden"
+            className="bg-background/70 backdrop-blur-xl border-b shadow-lg lg:hidden overflow-hidden"
           >
             <Container className="space-y-6 py-6">
               <ul className="flex flex-col gap-4">
@@ -127,9 +123,7 @@ export function Navbar() {
                       href={link.href}
                       className={cn(
                         'block py-2 text-base font-medium transition-colors',
-                        pathname === link.href
-                          ? 'text-primary'
-                          : 'text-muted-foreground hover:text-foreground',
+                        pathname === link.href ? 'text-primary' : 'text-muted-foreground hover:text-primary',
                       )}
                     >
                       {link.label}
@@ -139,7 +133,10 @@ export function Navbar() {
               </ul>
               <div className="border-t pt-4">
                 <Link href="/register" className="block w-full">
-                  <Button size="lg" className="w-full font-bold">
+                  <Button
+                    size="lg"
+                    className="w-full font-bold bg-gradient-to-r from-indigo-500 to-purple-500 text-white hover:from-indigo-600 hover:to-purple-600 shadow-md hover:shadow-lg transition-all"
+                  >
                     Register Now
                   </Button>
                 </Link>

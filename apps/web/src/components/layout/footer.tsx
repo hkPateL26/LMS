@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Link from 'next/link';
 import { Container } from './container';
-import { Rocket, Twitter, Linkedin, Instagram, Github } from 'lucide-react';
+import { Twitter, Linkedin, Instagram, Github } from 'lucide-react';
+import Logo from '@/components/ui/logo';
 
 export function Footer() {
   return (
@@ -10,10 +11,7 @@ export function Footer() {
         <div className="mb-16 grid grid-cols-1 gap-12 md:grid-cols-4">
           <div className="space-y-4 md:col-span-2">
             <Link href="/" className="group flex w-fit items-center gap-2">
-              <div className="bg-primary text-primary-foreground rounded-lg p-1.5">
-                <Rocket className="h-5 w-5" />
-              </div>
-              <span className="text-xl font-bold tracking-tight">Shreeji I-Tech</span>
+              <Logo className="h-8 w-auto" />
             </Link>
             <p className="text-muted-foreground max-w-sm leading-relaxed">
               Empowering the next generation of IT professionals by bridging the gap between
