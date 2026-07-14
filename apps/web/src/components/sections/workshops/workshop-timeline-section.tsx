@@ -25,9 +25,7 @@ export function WorkshopTimelineSection() {
               date={workshop.date}
               location="Gujarat"
               imageUrl={workshop.imageUrls[0]}
-              attendees="[XX]+"
               description={workshop.description}
-              status="Completed"
             />
           ))}
         </div>

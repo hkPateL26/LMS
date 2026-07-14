@@ -1,71 +1,67 @@
+'use client';
+
 import * as React from 'react';
+import { motion } from 'framer-motion';
 import { Container } from '@/components/layout/container';
 import { Section } from '@/components/layout/section';
-import { BookOpen, RefreshCw, Briefcase, Trophy } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 
-const steps = [
-  {
-    icon: BookOpen,
-    title: 'Learn Fundamentals',
-    description:
-      'We focus on the absolute core IT fundamentals that are required for any specialization.',
-  },
-  {
-    icon: RefreshCw,
-    title: 'Understand Industry Workflow',
-    description:
-      'Learn how teams actually build software using agile methodologies, Git, and collaboration tools.',
-  },
-  {
-    icon: Briefcase,
-    title: 'Build Professional Skills',
-    description:
-      'Develop soft skills, optimize your LinkedIn profile, and learn how to present yourself to recruiters.',
-  },
-  {
-    icon: Trophy,
-    title: 'Improve Career Readiness',
-    description:
-      'Combine technical awareness with professional skills to become fully career-ready.',
-  },
+const principles = [
+  'Project-based hands-on learning rather than theoretical lectures.',
+  'Focusing on the complete Software Development Life Cycle (SDLC).',
+  'Using the latest industry-standard tools (Git, Next.js, Node.js).',
+  'Building professional portfolios and GitHub profiles.',
+  'Developing communication and soft skills alongside technical skills.',
+  'Simulating real corporate environments and code reviews.',
 ];
 
 export function LearningPhilosophySection() {
   return (
-    <Section>
+    <Section className="bg-surface/30">
       <Container>
-        <div className="mx-auto mb-16 max-w-3xl text-center">
-          <h2 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">
-            Our Learning Philosophy
-          </h2>
-          <p className="text-muted-foreground text-lg leading-relaxed">
-            Our approach is pragmatic. We believe that a strong foundation in both technical and
-            professional skills is the key to unlocking career opportunities.
-          </p>
-        </div>
-
-        <div className="mb-16 grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, index) => {
-            const Icon = step.icon;
-            return (
-              <div key={index} className="flex flex-col items-center text-center">
-                <div className="bg-primary/10 text-primary mb-6 flex h-16 w-16 items-center justify-center rounded-2xl">
-                  <Icon className="h-8 w-8" />
-                </div>
-                <h3 className="mb-3 text-lg font-bold">{step.title}</h3>
-                <p className="text-muted-foreground text-sm">{step.description}</p>
-              </div>
-            );
-          })}
-        </div>
-
-        <div className="bg-surface mx-auto max-w-4xl rounded-3xl border p-8 text-center md:p-12">
-          <h3 className="mb-4 text-2xl font-bold">The 10-Day Career Foundation Program</h3>
-          <p className="text-muted-foreground leading-relaxed">
-            Our flagship program encapsulates this philosophy. Over 10 intensive days, students dive
-            deep into IT fundamentals, professional skills, AI awareness, GitHub, LinkedIn
-            optimization, portfolio guidance, and comprehensive career preparation.
-          </p>
+        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="order-2 lg:order-1"
+          >
+            <h2 className="mb-6 text-3xl font-bold tracking-tight sm:text-4xl">Our Learning Philosophy</h2>
+            <p className="text-muted-foreground mb-8 text-lg">
+              We believe that reading code is not the same as writing code. Our philosophy revolves around
+              experiential learning, where students build real-world products from day one.
+            </p>
+            
+            <ul className="space-y-4">
+              {principles.map((principle, index) => (
+                <motion.li
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  className="flex items-start gap-3"
+                >
+                  <CheckCircle2 className="text-primary mt-1 h-5 w-5 shrink-0" />
+                  <span className="text-muted-foreground text-base">{principle}</span>
+                </motion.li>
+              ))}
+            </ul>
+          </motion.div>
+          
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="bg-muted order-1 relative aspect-[4/3] overflow-hidden rounded-2xl lg:order-2"
+          >
+            <div className="from-secondary/10 to-secondary/30 absolute inset-0 bg-gradient-to-br" />
+            <div className="flex h-full items-center justify-center text-5xl">
+              💻
+            </div>
+          </motion.div>
         </div>
       </Container>
     </Section>

@@ -7,4 +7,112 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Database models will be defined in Phase 2
+model Admin {
+  id        String    @id @default(uuid())
+  email     String    @unique
+  password  String
+  name      String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model Workshop {
+  id          String    @id @default(uuid())
+  title       String
+  collegeName String
+  location    String
+  date        DateTime
+  description String
+  topics      String[]
+  speakerName String
+  speakerRole String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  media WorkshopMedia[]
+}
+
+enum MediaType {
+  PHOTO
+  VIDEO
+}
+
+model WorkshopMedia {
+  id         String    @id @default(uuid())
+  workshopId String
+  type       MediaType
+  url        String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+
+  workshop Workshop @relation(fields: [workshopId], references: [id], onDelete: Cascade)
+}
+
+model Mentor {
+  id         String    @id @default(uuid())
+  name       String
+  role       String
+  experience String
+  expertise  String[]
+  bio        String
+  photoUrl   String?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  deletedAt  DateTime?
+}
+
+enum TestimonialType {
+  WORKSHOP
+  FACULTY
+}
+
+model Testimonial {
+  id        String          @id @default(uuid())
+  type      TestimonialType
+  name      String
+  role      String
+  content   String
+  photoUrl  String?
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+  deletedAt DateTime?
+}
+
+model Registration {
+  id        String    @id @default(uuid())
+  fullName  String
+  email     String
+  mobile    String
+  college   String
+  semester  String
+  city      String
+  education String
+  linkedIn  String?
+  github    String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model FAQ {
+  id        String    @id @default(uuid())
+  question  String
+  answer    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}
+
+model ContactMessage {
+  id        String    @id @default(uuid())
+  name      String
+  email     String
+  phone     String
+  message   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+}

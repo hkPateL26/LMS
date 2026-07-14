@@ -10,7 +10,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
     "typecheck": "turbo run typecheck",
-    "prepare": "husky"
+    "prepare": "husky",
+    "postinstall": "turbo run prisma:generate"
   },
   "devDependencies": {
     "@launchpad/eslint-config": "workspace:*",

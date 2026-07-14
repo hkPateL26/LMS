@@ -23,10 +23,10 @@ export function TestimonialsPreviewSection() {
           {TESTIMONIALS.map((testimonial) => (
             <TestimonialCard
               key={testimonial.id}
-              content={testimonial.quote}
-              authorName={testimonial.studentName}
-              authorRole={testimonial.role}
-              authorCollege={testimonial.collegeName}
+              review={testimonial.quote}
+              name={testimonial.studentName}
+              role={testimonial.role}
+              college={testimonial.collegeName}
             />
           ))}
         </div>
