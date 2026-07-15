@@ -18,6 +18,7 @@ import * as React from 'react';
  */
 export function PolygonNetworkBackground() {
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
+  const [isDark, setIsDark] = React.useState(false);
 
   // Helper to generate a pool of moving points.
   const createPoints = (width: number, height: number) => {
@@ -35,6 +36,11 @@ export function PolygonNetworkBackground() {
   };
 
   React.useEffect(() => {
+    // Initial theme check
+    setIsDark(document.documentElement.classList.contains('dark'));
+  }, []);
+
+  React.useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -50,10 +56,14 @@ export function PolygonNetworkBackground() {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     // Theme detection (Tailwind dark class on <html>).
-    const isDark = document.documentElement.classList.contains('dark');
     const bgColor = isDark ? '#020617' : '#ffffff';
-    const lineColor = isDark ? 'rgba(100, 149, 237, 0.18)' : 'rgba(70, 130, 180, 0.07)'; // light skyblue, dark steelblue-ish
-    const triangleColor = isDark ? 'rgba(138, 43, 226, 0.04)' : 'rgba(138, 43, 226, 0.02)'; // purple subtle
+    // Opacity ranges per spec
+    const lineOpacity = isDark ? 0.18 : 0.07; // 15–20% dark, 4–8% light
+    const triangleOpacity = isDark ? 0.04 : 0.02;
+    const lineColor = `rgba(100, 149, 237, ${lineOpacity})`; // blue/indigo base
+    const triangleColor = `rgba(138, 43, 226, ${triangleOpacity})`; // purple
+    // Use 1px line width as required
+    const lineWidth = 1;
 
     const maxDist = 150; // distance for line/triangle connections
     let points = createPoints(width, height);
@@ -85,7 +95,7 @@ export function PolygonNetworkBackground() {
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
             ctx.strokeStyle = lineColor;
-            ctx.lineWidth = 0.6;
+            ctx.lineWidth = lineWidth;
             ctx.stroke();
 
             // Triangle (fill) – create a third point that is also within range.
@@ -140,8 +150,12 @@ export function PolygonNetworkBackground() {
     window.addEventListener('resize', handleResize);
 
     // Watch for theme changes to update colors.
-    const observer = new MutationObserver(() => {
-      // Re‑read theme flag and redraw on next frame.
+    const observer = new MutationObserver((mutations) => {
+      // Update dark mode flag when class attribute changes
+      const nowDark = document.documentElement.classList.contains('dark');
+      if (nowDark !== isDark) {
+        setIsDark(nowDark);
+      }
     });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
@@ -150,13 +164,14 @@ export function PolygonNetworkBackground() {
       window.removeEventListener('resize', handleResize);
       observer.disconnect();
     };
-  }, []);
+  }, [isDark]);
 
   return (
     <canvas
-      ref={canvasRef}
-      className="fixed inset-0 -z-10 pointer-events-none"
-      aria-hidden="true"
-    />
+        ref={canvasRef}
+        className="fixed inset-0 -z-10 pointer-events-none"
+        style={{ transition: 'background-color 300ms ease' }}
+        aria-hidden="true"
+      />
   );
 }
